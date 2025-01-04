@@ -1,0 +1,36 @@
+
+services:
+
+
+  eureka_server:
+    image: eureka:latest
+    container_name: eureka_server
+    ports:
+      - "8761:8761"
+
+  mariadb_server:
+    image: mariadb:latest
+    container_name: mariadb_server
+    environment:
+      MARIADB_ROOT_PASSWORD: passer
+      MARIADB_USER: haroun
+      MARIADB_PASSWORD: passer
+      MARIADB_DATABASE: etudiants
+
+    ports:
+      - "3309:3306"
+
+
+  gestiondesetudiants:
+    image: gestiondesetudiants:latest
+    container_name: gestiondesetudiants
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mariadb://localhost:3309:3306/etudiants
+      - SPRING_DATASOURCE_USERNAME=haroun
+      - SPRING_DATASOURCE_PASSWORD=passer
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://localhost:8761/eureka/
+    depends_on:
+      - mariadb_server
+      - eureka_server

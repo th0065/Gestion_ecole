@@ -1,0 +1,5 @@
+com\groupeisi\classes\GestionDesClassesApplication.class
+com\groupeisi\classes\service\ClassesService.class
+com\groupeisi\classes\entity\Classes.class
+com\groupeisi\classes\repository\ClassesRepository.class
+com\groupeisi\classes\controller\ClassesController.class

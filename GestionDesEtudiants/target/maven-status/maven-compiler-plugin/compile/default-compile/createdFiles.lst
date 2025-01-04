@@ -1,0 +1,6 @@
+com\groupeisi\etudiants\controller\EtudiantController.class
+com\groupeisi\etudiants\GestionDesEtudiantsApplication.class
+com\groupeisi\etudiants\entity\Etudiant.class
+com\groupeisi\etudiants\service\EtudiantService.class
+com\groupeisi\etudiants\config\SecurityConfig.class
+com\groupeisi\etudiants\repository\EtudiantRepository.class

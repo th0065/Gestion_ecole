@@ -1,0 +1,38 @@
+services:
+#  eureka_server:
+#    image: eureka:latest
+#    container_name: eureka_server
+#    ports:
+#      - "8761:8761"
+#
+  postgres_server:
+    image: postgres:latest
+    container_name: postgres_profs
+    environment:
+      POSTGRES_USER: haroun
+      POSTGRES_PASSWORD: passer
+      POSTGRES_DB: profs
+    ports:
+      - "5432:5432"  # Expose PostgreSQL port 5432
+    networks:
+      - profs-net
+
+
+
+
+  gestiondesprofs:
+    image: gestion-des-profs:latest
+    container_name: gestion-des-profs
+    ports:
+      - "3000"
+    environment:
+      SPRING_DATASOURCE_USERNAME: haroun
+      SPRING_DATASOURCE_PASSWORD: passer
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/profs
+    depends_on:
+      - postgres_profs
+#      - eureka_server
+
+networks:
+  profs-net:
+    driver: bridge

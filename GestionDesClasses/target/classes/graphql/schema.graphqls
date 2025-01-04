@@ -1,0 +1,16 @@
+type Classe {
+    id: ID
+    nom: String
+    professeurIds: [Int]
+    etudiantIds: [Int]
+    matiereIds: [Int]
+}
+
+type Query {
+    getClasse(id: ID): Classe
+    getAllClasses: [Classe]
+}
+
+type Mutation {
+    createClasse(nom: String, professeurIds: [Int], etudiantIds: [Int], matiereIds: [Int]): Classe
+}

@@ -1,0 +1,40 @@
+services:
+  #  eureka_server:
+  #    image: eureka:latest
+  #    container_name: eureka_server
+  #    ports:
+  #      - "8761:8761"
+  #
+  postgres_graphql:
+    image: postgres:latest
+    container_name: postgres_graphql
+    environment:
+      POSTGRES_USER: haroun
+      POSTGRES_PASSWORD: passer
+      POSTGRES_DB: classes
+    ports:
+      - "5433:5433"  # Expose PostgreSQL port 5433
+    networks:
+      - classes-net
+
+
+
+
+  gestiondesclasses:
+    image: gestiondesclasses:latest
+    container_name: gestiondesclasses
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_USERNAME: haroun
+      SPRING_DATASOURCE_PASSWORD: passer
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5433/classes?ssl=false
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+      PGDATA: /var/lib/postgresql/data/pgdata
+    depends_on:
+      - postgres_graphql
+#      - eureka_server
+
+networks:
+  classes-net:
+    driver: bridge

@@ -1,0 +1,38 @@
+services:
+#  eureka_server:
+#    image: eureka:latest
+#    container_name: eureka_server
+#    ports:
+#      - "8761:8761"
+#
+  postgres_server:
+    image: postgres:latest
+    container_name: postgres_server
+    environment:
+      POSTGRES_USER: haroun
+      POSTGRES_PASSWORD: passer
+      POSTGRES_DB: matieres
+    ports:
+      - "5432:5432"  # Expose PostgreSQL port 5432
+    networks:
+      - matieres-net
+
+
+
+
+  gestiondesmatieres:
+    image: gestiondesmatieres:latest
+    container_name: gestiondesmatieres
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_USERNAME: haroun
+      SPRING_DATASOURCE_PASSWORD: passer
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/matieres
+    depends_on:
+      - postgres_server
+#      - eureka_server
+
+networks:
+  matieres-net:
+    driver: bridge
